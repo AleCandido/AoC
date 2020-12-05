@@ -1,0 +1,2 @@
+[workspace]
+members = ["input", "xmas2020"]
