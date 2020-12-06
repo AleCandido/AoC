@@ -1,5 +1,5 @@
 [package]
-name = "input"
+name = "aocinput"
 version = "0.1.0"
 authors = ["Alessandro Candido <candido.ale@gmail.com>"]
 edition = "2018"
