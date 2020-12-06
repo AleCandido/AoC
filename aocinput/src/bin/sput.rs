@@ -1,5 +1,5 @@
-use aocinput;
+use aocinput::load_session;
 
 fn main() {
-    println!("{:#?}", aocinput::decrypt_session_token());
+    println!("{:#?}", load_session::decrypt_session_token());
 }
