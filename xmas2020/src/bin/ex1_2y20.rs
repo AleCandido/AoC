@@ -6,6 +6,13 @@ use aocinput::request;
 
 fn main() {
     let resp = request::get_input(2020, 1);
+    let mut expenses: Vec<i32> = resp
+        .trim()
+        .split("\n")
+        .map(|x| x.parse().unwrap())
+        .collect();
 
-    println!("{:#?}", resp);
+    expenses.sort_unstable();
+
+    println!("{:#?}", expenses);
 }
