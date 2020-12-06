@@ -14,5 +14,23 @@ fn main() {
 
     expenses.sort_unstable();
 
-    println!("{:#?}", expenses);
+    for (idx, e) in (&expenses).iter().enumerate() {
+        for (jdx, f) in (&expenses[(idx + 1)..]).iter().enumerate() {
+            match expenses.binary_search(&(2020 - e - f)) {
+                Ok(compl_idx) => {
+                    println!(
+                        "el: {}\nfl: {}\ncompl: {}\nidx: {}\njdx: {}\nprod: {}",
+                        e,
+                        f,
+                        expenses[compl_idx],
+                        idx,
+                        jdx,
+                        e * f * expenses[compl_idx]
+                    );
+                    return;
+                }
+                Err(_) => {}
+            }
+        }
+    }
 }
