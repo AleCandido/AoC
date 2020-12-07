@@ -1,7 +1,3 @@
-//1. Quick_sort on the numbers' list
-//2. start from the beginning and loop over:
-//- subtract the number from the target
-//- binary search if the difference it's present
 use aocinput::request;
 
 #[derive(Debug)]
@@ -25,7 +21,16 @@ impl PasswordRecord {
     }
 
     fn is_correct(&self) -> bool {
-        true
+        let mut chars: Vec<char> = vec![];
+
+        for n in [self.first, self.second].iter() {
+            match self.password.chars().nth((n - 1).into()) {
+                Some(c) => chars.push(c),
+                None => {}
+            };
+        }
+
+        chars.iter().filter(|c| **c == self.letter).count() == 1
     }
 }
 
