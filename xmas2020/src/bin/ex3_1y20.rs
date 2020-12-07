@@ -8,5 +8,18 @@ fn main() {
         .map(|s| s.chars().collect())
         .collect();
 
-    println!("#correct: {:#?}", trees);
+    let step = 3;
+    let width = trees[0].len();
+
+    let mut x = 0;
+    let mut trees_crossed = 0;
+
+    for row in trees.iter() {
+        if row[x] == '#' {
+            trees_crossed += 1;
+        }
+        x = (x + step) % width;
+    }
+
+    println!("#trees: {:#?}", trees_crossed);
 }
