@@ -31,5 +31,15 @@ fn main() {
     for pass in passes.iter() {
         ids.push(BoardingPass::from_string(&pass).seat_id());
     }
-    println!("max seat_id: {}", ids.iter().max().unwrap());
+
+    ids.sort();
+    let mut missing = 0;
+    for idw in ids.windows(2) {
+        if idw[1] != (idw[0] + 1) {
+            missing = idw[0] + 1;
+            break;
+        }
+    }
+
+    println!("missing seat_id: {}", missing);
 }
