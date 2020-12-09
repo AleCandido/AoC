@@ -7,7 +7,6 @@ fn main() {
     let mut sum = 0;
 
     for group in groups.iter() {
-        //let answers: Vec<String> = group.trim().split("\n").map(|x| x.to_owned()).collect();
         let mut answers: Vec<u8> = group.trim().replace("\n", "").as_bytes().to_vec();
         answers.sort();
         answers.dedup();
