@@ -32,7 +32,8 @@ impl Rule {
                 .iter()
                 .map(|el| {
                     let (num_s, bag_s) = el.splitn(2, " ").next_tuple().unwrap();
-                    let num = num_s.parse().unwrap_or_else(|s| {
+                    let num = num_s.parse().unwrap_or_else(|_| {
+                        //let num = num_s.parse().unwrap_or_else(|s| {
                         //println!("{}", s);
                         0
                     });
