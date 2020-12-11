@@ -56,5 +56,10 @@ fn main() {
         nums[min_idx],
         nums[max_idx],
     );
-    println!("boundaries sum: {}", nums[min_idx] + nums[max_idx]);
+
+    let result_window = nums[min_idx..(max_idx + 1)].to_vec();
+    println!(
+        "boundaries sum: {}",
+        result_window.iter().min().unwrap() + result_window.iter().max().unwrap()
+    );
 }
