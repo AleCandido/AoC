@@ -9,3 +9,5 @@ edition = "2018"
 aocinput = { path = "../aocinput" }
 itertools = "0.9.0"
 ndarray = "0.14.0"
+tui = "0.13.0"
+termion = "1.5"
