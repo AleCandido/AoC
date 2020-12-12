@@ -6,6 +6,12 @@ use ndarray::prelude::*;
 use aocinput::request;
 
 fn step_occupancy(seats: &Array2<char>, row: usize, col: usize) -> char {
+    let curr = seats[[row, col]];
+
+    if curr == '.' {
+        return curr;
+    }
+
     let mut adjacents = Vec::new();
 
     for (dr, dc) in iproduct!(-1..2, -1..2) {
@@ -13,30 +19,38 @@ fn step_occupancy(seats: &Array2<char>, row: usize, col: usize) -> char {
         if dr == 0 && dc == 0 {
             continue;
         }
-        // define the element in the window
-        let row_w = row as isize + dr;
-        let col_w = col as isize + dc;
+        let mut n = 0;
+        loop {
+            n += 1;
 
-        // check box boundaries
-        if row_w < 0 || seats.shape()[0] as isize <= row_w {
-            continue;
+            // define the element in the window
+            let row_w = row as isize + n * dr;
+            let col_w = col as isize + n * dc;
+
+            // check box boundaries
+            if row_w < 0 || seats.shape()[0] as isize <= row_w {
+                break;
+            }
+            if col_w < 0 || seats.shape()[1] as isize <= col_w {
+                break;
+            }
+
+            let row_w = row_w as usize;
+            let col_w = col_w as usize;
+
+            //println!("{} - {}", row_w, col_w);
+
+            let curr = seats[[row_w, col_w]];
+            if curr != '.' {
+                adjacents.push(curr);
+                break;
+            }
         }
-        if col_w < 0 || seats.shape()[1] as isize <= col_w {
-            continue;
-        }
-
-        let row_w = row_w as usize;
-        let col_w = col_w as usize;
-
-        //println!("{} - {}", row_w, col_w);
-
-        adjacents.push(seats[[row_w, col_w]]);
     }
 
-    let curr = seats[[row, col]];
     if curr == 'L' && !adjacents.contains(&'#') {
         '#'
-    } else if curr == '#' && adjacents.iter().filter(|c| **c == '#').count() >= 4 {
+    } else if curr == '#' && adjacents.iter().filter(|c| **c == '#').count() >= 5 {
         'L'
     } else {
         curr
@@ -62,7 +76,7 @@ fn main() {
     let seats_flat: Vec<char> = seats_v.iter().flatten().cloned().collect();
     let seats = Array2::from_shape_vec((seats_v.len(), seats_v[0].len()), seats_flat).unwrap();
 
-    //let seats = seats.slice(s![..10, ..10]).to_owned();
+    //let seats = seats.slice(s![..17, ..17]).to_owned();
     let mut curr = seats.clone();
     let mut next = sweep(&curr);
     loop {
