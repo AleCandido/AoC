@@ -1,10 +1,8 @@
 use std::collections::HashMap;
-//use std::io::{self, Write};
 
 fn main() {
     let resp = "1,0,18,10,19,6";
 
-    //let mut history: Vec<u32> = resp.split(",").map(|n| n.parse().unwrap()).collect();
     let mut history: HashMap<usize, usize> = resp
         .split(",")
         .enumerate()
