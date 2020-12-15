@@ -1,42 +1,23 @@
 use std::collections::HashMap;
-use std::io::{self, Write};
+//use std::io::{self, Write};
 
 fn main() {
     let resp = "1,0,18,10,19,6";
 
     //let mut history: Vec<u32> = resp.split(",").map(|n| n.parse().unwrap()).collect();
-    let mut history: HashMap<u32, u32> = resp
+    let mut history: HashMap<usize, usize> = resp
         .split(",")
         .enumerate()
-        .map(|n| n.parse().unwrap())
+        .map(|(i, n)| (n.parse().unwrap(), i + 1))
         .collect();
     let l = history.len();
 
-    let mut z = 0;
-
-    for i in l..200000 {
-        match history[..(i - 1)]
-            .iter()
-            .rposition(|n| n == history.last().unwrap())
-        {
-            Some(last) => {
-                history.push((i - 1 - last) as u32);
-                if (i - 1 - last) as f64 > (i as f64) / 2. {
-                    if (i - 1 - last) > z {
-                        z = (i - 1 - last);
-                        print!("{}", z);
-                    } else {
-                        print!(".");
-                    }
-                    io::stdout().flush().unwrap();
-                }
-            }
-            None => {
-                history.push(0 as u32);
-            }
-        }
+    let mut last: usize = resp.split(",").last().unwrap().parse().unwrap();
+    for i in l..30000000 {
+        let last_time = history.entry(last).or_insert(i);
+        last = i - *last_time;
+        *last_time = i;
     }
 
-    //let l = history.len();
-    //println!("{:?}", &history[(l - 1000)..l]);
+    println!("{}", last);
 }
