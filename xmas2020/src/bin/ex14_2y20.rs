@@ -79,7 +79,4 @@ fn main() {
     }
 
     println!("{}", memory.values().sum::<u64>());
-    //let value = 0;
-    //let mask = BitMask::from_str("XXXXXXXXXXXXXXXXXXXXXXXXXXXXX1XXXX0X");
-    //println!("value: {}\nresult: {}", value, mask.apply(value));
 }
